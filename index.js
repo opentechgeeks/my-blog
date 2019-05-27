@@ -7,9 +7,27 @@ const express = require('express')
 
 const mongoose = require('mongoose')
 
+const Post = require('./database/models/Post')
+
+const bodyParser= require('body-parser')
+
+const fileUpload = require('express-fileupload')
+
+const createPostController = require('./controllers/createPost')
+
+const homePageController = require("./controllers/homePage");
+
+const getPostController = require("./controllers/getPost");
+
+
+const storePostController = require("./controllers/storePost");
+
 const app = express()
 
+
 mongoose.connect('mongodb://localhost/my-blog')
+
+app.use(fileUpload())
 
 app.use(express.static('public'))
 
@@ -17,29 +35,20 @@ app.use(expressEdge)
 
 app.set('views', `${__dirname}/views`)
 
-app.get('/', (req, res) => {
-    res.render('index')
-})
 
-app.get('/post/new', (req, res) => {
-    res.render('create')
-})
+app.use(bodyParser.json())
+
+app.use(bodyParser.urlencoded({extended: true}))
+
+const storePost = require("./middleware/storePost");
 
 
-app.get('/about', (req, res) => {
-    res.render('about')
+app.use("/posts/store", storePost)
 
-})
-
-app.get('/post', (req, res) => {
-    res.render('post')
-
-})
-
-app.get('/contact', (req, res) => {
-    res.render('contact')
-
-})
+app.get("/", homePageController);
+app.get("/post/:id", getPostController);
+app.get("/posts/new", createPostController);
+app.post("/posts/store", storePostController);
 
 
 

@@ -3,8 +3,14 @@ const mongoose = require ('mongoose')
 const PostSchema = new mongoose.Schema ({
 
     title: String,
-    Description: String,
-    content: String
+    subtitle: String,
+    content: String,
+    username: String,
+    image: String,
+    createdAt: {
+        type: Date,
+        default: new Date()
+    }
     
 })  
 
