@@ -25,7 +25,7 @@ const storePostController = require("./controllers/storePost");
 const app = express()
 
 
-mongoose.connect('mongodb://localhost/my-blog')
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/my-blog')
 
 app.use(fileUpload())
 

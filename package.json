@@ -17,6 +17,7 @@
     "express": "^4.16.4",
     "express-edge": "^1.0.0",
     "express-fileupload": "^1.1.4",
+    "mongodb": "^3.0.0",
     "mongoose": "^5.5.7"
   },
   "devDependencies": {
